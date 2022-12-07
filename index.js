@@ -15,6 +15,8 @@ const sanitize = require('express-mongo-sanitize');
 // Then apply it to our app (you can also pass arguments to tailor your sanitization further)
 app.use(sanitize({allowsDots: true, replaceWith: "_"}))
 
+app.use(express.json());
+
 app.use('/authors', authorRouter);
 
 app.listen(port, ()=> console.log(`Server started on port ${6000}`));
