@@ -24,7 +24,13 @@ const getAuthorById = async (req, res) => {
     }
 };
 
-const postAuthor = (req, res) => {};
+const postAuthor = (req, res) => {
+    try{
+
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
 
 const updateAuthor = (req, res) => {};
 
