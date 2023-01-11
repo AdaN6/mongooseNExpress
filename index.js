@@ -8,7 +8,7 @@ const connectToDB = require('./DB/dbConnection.js');
 
 connectToDB();
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5000;
 
 //installed express-mongo-sanitize, then require it
 const sanitize = require('express-mongo-sanitize');
@@ -19,4 +19,4 @@ app.use(express.json());
 
 app.use('/authors', authorRouter);
 
-app.listen(port, ()=> console.log(`Server started on port ${6000}`));
+app.listen(port, ()=> console.log(`Server started on port ${port}`));
