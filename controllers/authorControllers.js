@@ -44,9 +44,40 @@ const postAuthor = async (req, res) => {
     }
 };
 
-const updateAuthor = (req, res) => {};
+const updateAuthor = async (req, res) => {
+  try {
+    const { id } = req.params;
+    // check whether the author exists
+    const findAuthor = await AuthorCollection.findById(id);
+    if (!findAuthor) return res.status(400).send("Author does not exist");
 
-const deleteAuthor = (req, res) => {};
+    // It is not advised to completely erase an user from your database, as it can lead to
+    // gaps in information (and somethimes you might need to reference an user that "deleted"
+    // their account. Instead, we can set a flag to indicate that the user is no longer active
+    // by swapping the active: false field to the user's document)
+
+    const deactivateAuthor = await AuthorCollection.findByIdAndUpdate(
+      id,
+      { active: false },
+      { new: true }
+    );
+    res.status(200).json(deactivateAuthor);
+
+    // --> for completely delete the author from database
+    // const deleteAuthor = await AuthorCollection.findByIdAndDelete(id);
+    // res.status(200).json(deleteAuthor);
+
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+const deleteAuthor =  async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 module.exports = {
   getAuthors,
