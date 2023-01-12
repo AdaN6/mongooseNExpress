@@ -5,7 +5,6 @@ const authorRouter = require('./routes/authorRoutes.js');
 require('dotenv').config();
 
 const connectToDB = require('./DB/dbConnection.js');
-
 connectToDB();
 
 const port = process.env.PORT || 5000;

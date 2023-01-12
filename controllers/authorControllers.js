@@ -24,8 +24,20 @@ const getAuthorById = async (req, res) => {
     }
 };
 
-const postAuthor = (req, res) => {
+const postAuthor = async (req, res) => {
     try{
+      const {firstName, lastName, dateOfBirth} = req.body;
+      //validation
+      if (!firstName || !lastName || !dateOfBirth)
+        return res.status(400).send("Please provide all required fields");
+
+      // check whether the author exists in database
+      const findAuthor = await AuthorCollection.findOne({lastName}); 
+      if (findAuthor) return res.status(400).send('Author already exists')
+
+      // create a new author and save it to the database if everything is ok
+      const newAuthor = await AuthorCollection.create(req.body);
+      res.status(201).json(newAuthor);
 
     } catch (error) {
         res.status(500).send(error.message);
