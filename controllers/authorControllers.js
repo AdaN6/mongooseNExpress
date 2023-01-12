@@ -46,7 +46,21 @@ const postAuthor = async (req, res) => {
 
 const updateAuthor = async (req, res) => {
   try {
-   
+    const { id } = req.params;
+
+    //check the existance of the author
+    const findAuthor = await AuthorCollection.findById(id);
+
+    // if the Author doesnt exist, return 404
+    if (!findAuthor) return res.status(404).send("Author does not exist");
+
+    // If the Author exists, we can now update the Author's fields
+    // The findByIdAndUpdate method takes a few parameters, at the bare minimum:
+    // The id of the document to update, and the fields to update.
+    // However, if need the updated document to be returned, need to add the
+    // {new: true} parameter as a third argument so your query returns you the updated document
+    const updateAuthor = await AuthorCollection.findByIdAndUpdate(id, req.body, {new: true});
+    res.status(200).json(updateAuthor);
 
   } catch (error) {
     res.status(500).send(error.message);
