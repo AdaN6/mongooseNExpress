@@ -46,6 +46,15 @@ const postAuthor = async (req, res) => {
 
 const updateAuthor = async (req, res) => {
   try {
+   
+
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+const deleteAuthor =  async (req, res) => {
+  try {
     const { id } = req.params;
     // check whether the author exists
     const findAuthor = await AuthorCollection.findById(id);
@@ -66,14 +75,6 @@ const updateAuthor = async (req, res) => {
     // --> for completely delete the author from database
     // const deleteAuthor = await AuthorCollection.findByIdAndDelete(id);
     // res.status(200).json(deleteAuthor);
-
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-};
-
-const deleteAuthor =  async (req, res) => {
-  try {
   } catch (error) {
     res.status(500).send(error.message);
   }
